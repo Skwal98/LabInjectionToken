@@ -28,17 +28,23 @@ providers: {
 
 
 Order:
+
  OnInit:
+ 
     - Parent component
     - Directive (from parent)
     - Child component
     - Directive (from child)
+    
   ContentInit:
+  
     - Parent component
     - Directive (from parent)
     - Children component
     - Directive component (from child)
+    
   ViewInit:
+  
     - Directive (from child)
     - Directive (from parent)
     - Children component
