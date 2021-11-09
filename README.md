@@ -1,27 +1,45 @@
-# LabInjectionToken
+DI:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+[1] useFactory - factory created only once.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Directives:
 
-## Code scaffolding
+[1] Can inject component to directive
+[2] Can inject parent component to directive
+[3] Directive can inject other directive from same element!
+[4] Directive can't inject yourself (Circular dependency in DI detected)
+[5] Directive can't inject parent directive / from ng-content
+[6] Can provide value from component, that can inject all children
+[7] Can inject parent component in component
+[8] Contructors directive invoke before OnInit component
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+Type providers:
+providers: {
+    provide: ProvideValue/Token,
+    useValue: ...,
+    useFactory: ...,
+    useExist: ...,
+    useClass: ... (will be create instance class)
+    multi: true/false,
+    deps: ...
+}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Order:
+ OnInit:
+    - Parent component
+    - Directive (from parent)
+    - Child component
+    - Directive (from child)
+  ContentInit:
+    - Parent component
+    - Directive (from parent)
+    - Children component
+    - Directive component (from child)
+  ViewInit:
+    - Directive (from child)
+    - Directive (from parent)
+    - Children component
+    - Parent component

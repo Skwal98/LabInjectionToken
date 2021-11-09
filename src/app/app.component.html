@@ -3,3 +3,12 @@ Main
 <button (click)='injectToken()'>Inject token</button>
 
 <app-second custom class="m-5"></app-second>
+
+<app-base-dir>
+    <div third>From content</div>
+
+    <ng-template firstDir #tml>
+        FirstDirective
+    </ng-template>
+</app-base-dir>
+

@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SecondComponent } from './components/second.component';
+import { BaseDirComponent } from './di/directives/base-dir.component';
+import { FirstDirective } from './di/directives/dirs/first.directive';
+import { SecondDirective } from './di/directives/dirs/second.directive';
+import { ThirdDirective } from './di/directives/dirs/third.directive';
 import { CustomDirective } from './directives/custom.directive';
 import { Car, defaultCarToken } from './tokens/car.token';
 
@@ -11,7 +15,12 @@ import { Car, defaultCarToken } from './tokens/car.token';
   declarations: [
     AppComponent,
     SecondComponent,
-    CustomDirective
+    CustomDirective,
+    BaseDirComponent,
+
+    FirstDirective,
+    SecondDirective,
+    ThirdDirective
   ],
   imports: [
     BrowserModule,

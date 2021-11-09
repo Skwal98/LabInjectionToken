@@ -4,7 +4,8 @@ import { Car, defaultCarToken } from '../tokens/car.token';
 
 @Component({
   selector: 'app-second',
-  template: 'second'
+  template: 'second',
+  providers: []
 })
 export class SecondComponent {
 
