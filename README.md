@@ -21,6 +21,8 @@ Directives:
 
 [8] Contructors directive invoke before OnInit component
 
+[8] Can send templateRef to directive as @Input (will be set after ContentInit component)
+
 
 Type providers:
 
@@ -40,21 +42,21 @@ Order:
 
  OnInit:
  
-    - Parent component
-    - Directive (from parent)
-    - Child component
-    - Directive (from child)
+    - Parent component (1)
+    - Directive (from parent) (3)
+    - Child component (4)
+    - Directive (from child) (7)
     
   ContentInit:
   
-    - Parent component
-    - Directive (from parent)
-    - Children component
-    - Directive component (from child)
+    - Parent component (2)
+    - Directive (from parent) (5)
+    - Children component (6)
+    - Directive component (from child) (8)
     
   ViewInit:
   
-    - Directive (from child)
-    - Directive (from parent)
-    - Children component
-    - Parent component
+    - Directive (from child) (9)
+    - Directive (from parent) (10)
+    - Children component (11)
+    - Parent component (12)
