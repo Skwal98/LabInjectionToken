@@ -1,7 +1,20 @@
-import { AfterContentInit, AfterViewInit, Component, forwardRef, Inject, InjectFlags, Injector, OnInit, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  forwardRef,
+  Inject,
+  InjectFlags,
+  Injector,
+  OnInit,
+  SkipSelf,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Templ } from './di/directives/base-dir.component';
 import { FirstDirective } from './di/directives/dirs/first.directive';
 import { ThirdDirective } from './di/directives/dirs/third.directive';
+import { MyRootService } from './services/my-root.service';
 import { SomeService } from './services/some.service';
 import { Car, defaultCarToken } from './tokens/car.token';
 
@@ -11,23 +24,28 @@ import { Car, defaultCarToken } from './tokens/car.token';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  providers: [{
-    //we override token, and component and child get this value
-    provide: defaultCarToken,
-    useValue: new Car("car from app component")
-  },
-  {
-    provide: ThirdDirective,
-    useExisting: AppComponent
-  },
-  {
-    provide: 'test',
-    useValue: 55
-  }],
-  
+  providers: [
+    {
+      //we override token, and component and child get this value
+      provide: defaultCarToken,
+      useValue: new Car('car from app component'),
+    },
+    {
+      provide: ThirdDirective,
+      useExisting: AppComponent,
+    },
+    {
+      provide: 'test',
+      useValue: 55,
+    },
+    {
+      provide: MyRootService,
+    },
+  ],
 })
-export class AppComponent implements Templ, OnInit, AfterContentInit, AfterViewInit {
-
+export class AppComponent
+  implements Templ, OnInit, AfterContentInit, AfterViewInit
+{
   //Inject working in:
   //providers
   //ctor services
@@ -41,21 +59,22 @@ export class AppComponent implements Templ, OnInit, AfterContentInit, AfterViewI
   //can use inject flags: @Optional, @Seld, @skipSelf, @Host
   //constructor(@Inject(defaultCarToken) carToken: Car){ }
 
-
   //we can use Inject "by hand", not recomended!
   // const former = setCurrentInjector(injector);
   //const service = inject(HelloService);
   //setCurrentInjector(former);
-  
- 
-  constructor(public injector: Injector, service: SomeService){
-      
-      //get dependency use injector (not support inject flags!!! bug api: https://github.com/angular/angular/issues/31776 [close])
-      const carToken = injector.get(defaultCarToken);
 
-      //we can 'change' field object, and all other components will be get a new value
-      //carToken.title = 'new'
-      console.log(carToken.title);
+  constructor(
+    public injector: Injector,
+    service: SomeService,
+    rootS: MyRootService
+  ) {
+    //get dependency use injector (not support inject flags!!! bug api: https://github.com/angular/angular/issues/31776 [close])
+    const carToken = injector.get(defaultCarToken);
+
+    //we can 'change' field object, and all other components will be get a new value
+    //carToken.title = 'new'
+    console.log(carToken.title);
   }
 
   ngAfterViewInit(): void {
@@ -66,9 +85,9 @@ export class AppComponent implements Templ, OnInit, AfterContentInit, AfterViewI
     console.log('on init');
   }
 
-  injectToken(){
+  injectToken() {
     const car = this.injector.get(defaultCarToken);
-    console.log('inject again: '+ car.title);
+    console.log('inject again: ' + car.title);
     console.log(this.template);
   }
 
@@ -76,14 +95,13 @@ export class AppComponent implements Templ, OnInit, AfterContentInit, AfterViewI
     console.log('after content init');
   }
 
-  log(text: string){
+  log(text: string) {
     console.count(text);
   }
-  
 
   @ViewChild('tml') public tm: TemplateRef<any>;
 
-  public get template(){
+  public get template() {
     return this.tm;
   }
 }
